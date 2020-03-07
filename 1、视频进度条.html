@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>视频进度条</title>
+	</head>
+	<style>
+		/* 视频 */
+		.vedio{
+			position: relative;
+			width: 360px;
+			height: 204px;
+			margin: 50px auto;
+		}
+		.vedio img{
+			width: 100%;
+			height: 100%;
+		}
+		.pic{
+			/* display: none; */
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: url("https://puui.qpic.cn/video_caps/0/m30648qgdf4.q4.jpg/0") ;
+		}
+		/* 进度条 */
+		.progress-wrapper{
+			display: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 30px;
+			width: 100%;
+			background-color: rgba(0,0,0,.5);
+		}
+		.progress{			
+			width: 0;
+			max-width: 340px;
+			height: 5px;		
+			margin: 12.5px 10px;
+			background-color: #fff;
+		}
+	</style>
+	<body>
+		<div class="vedio" id="vedio">
+			<!-- 封面图 -->
+			<img src="http://puui.qpic.cn/qqvideo_ori/0/m30648qgdf4_360_204/0">
+			
+			<div class="pic" id="pic">				
+			</div>
+			<!-- 进度条 -->
+			<div class="progress-wrapper" id="progress-wrapper">
+				<div class="progress" id="progress"></div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			// 元素获取
+			let vedio = document.getElementById('vedio')
+			let pic = document.getElementById('pic')
+			let progressWrapper = document.getElementById('progress-wrapper')
+			let progress = document.getElementById('progress')
+			
+			vedio.onmousemove = function(e){
+			
+				progressWrapper.style.display = "block"
+				pic.style.display = "block"
+				// 设置进度条位置			
+				let mousePos = e.pageX  - vedio.offsetLeft
+				const progressMargin = parseInt(window.getComputedStyle(progress).marginLeft)				
+				progress.style.width = mousePos - progressMargin + 'px';
+				
+				// 图片分段
+				const count = 6
+				let countWidth = vedio.offsetWidth / count 
+				let currentCount = Math.floor(mousePos / countWidth)
+				
+				// 图片切换
+				switch (currentCount){
+					case 0:
+						pic.style.backgroundPosition = 'left 0px top 0';
+						break;
+					case 1:
+						pic.style.backgroundPosition = 'left -360px top 0';
+						break;
+					case 2:
+						pic.style.backgroundPosition = 'left -720px top 0';
+						break;
+					case 3:
+						pic.style.backgroundPosition = 'left 0 top -204px';
+						break;
+					case 4:
+						pic.style.backgroundPosition = 'left -360px top 204px';
+						break;
+					case 5:
+						pic.style.backgroundPosition = 'left -720px top -204px';
+						break;
+								
+				}
+	
+				if(mousePos >= 350){
+					pic.style.backgroundPosition = "left 0 top -408px"
+				}
+			}
+			
+			vedio.onmouseleave = function(){
+				progressWrapper.style.display = "none"
+				pic.style.display = "none"
+			}
+		</script>
+	</body>
+</html>
