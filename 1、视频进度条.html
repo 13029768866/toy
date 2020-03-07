@@ -17,7 +17,7 @@
 			height: 100%;
 		}
 		.pic{
-			/* display: none; */
+			display: none;
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -74,27 +74,28 @@
 				// 图片分段
 				const count = 6
 				let countWidth = vedio.offsetWidth / count 
-				let currentCount = Math.floor(mousePos / countWidth)
+				let currentCount = Math.floor(mousePos / countWidth) 
 				
 				// 图片切换
+				const imgRowCount = 3
 				switch (currentCount){
 					case 0:
-						pic.style.backgroundPosition = 'left 0px top 0';
+						pic.style.backgroundPosition = `top 0 left 0`;
 						break;
-					case 1:
-						pic.style.backgroundPosition = 'left -360px top 0';
+					case 1:										
+						pic.style.backgroundPosition = `top ${Math.floor(currentCount / imgRowCount) * -204}px left ${currentCount % imgRowCount * -360}px`;
 						break;
-					case 2:
-						pic.style.backgroundPosition = 'left -720px top 0';
+					case 2:						
+						pic.style.backgroundPosition = `top ${Math.floor(currentCount / imgRowCount) * -204}px left ${currentCount % imgRowCount * -360}px`;
 						break;
 					case 3:
-						pic.style.backgroundPosition = 'left 0 top -204px';
+						pic.style.backgroundPosition = `top ${Math.floor(currentCount / imgRowCount) * -204}px left ${currentCount % imgRowCount * -360}px`;
 						break;
 					case 4:
-						pic.style.backgroundPosition = 'left -360px top 204px';
+						pic.style.backgroundPosition = `top ${Math.floor(currentCount / imgRowCount) * -204}px left ${currentCount % imgRowCount * -360}px`;
 						break;
 					case 5:
-						pic.style.backgroundPosition = 'left -720px top -204px';
+						pic.style.backgroundPosition = `top ${Math.floor(currentCount / imgRowCount) * -204}px left ${currentCount % imgRowCount * -360}px`;
 						break;
 								
 				}
